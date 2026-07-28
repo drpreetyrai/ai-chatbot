@@ -1,0 +1,30 @@
+{
+  "$comment": [
+    "Documented, expiring exceptions to the npm audit gate.",
+    "An entry here is a decision someone made and signed, not a suppression.",
+    "Every entry must state why it does not apply to this product and when it is",
+    "revisited. An expired entry fails the build exactly like an unknown advisory,",
+    "so an exception cannot quietly become permanent."
+  ],
+  "allow": [
+    {
+      "advisory": "GHSA-qwww-vcr4-c8h2",
+      "package": "react-router",
+      "title": "RSC Mode CSRF Bypass Allows Action Execution Before 400 Response",
+      "severity": "high",
+      "why": [
+        "The vulnerability is in React Router's RSC (React Server Components) mode and",
+        "its server-action request handling. Aria's front end is a client-only SPA:",
+        "it uses BrowserRouter with no loaders, no actions, no server rendering and no",
+        "RSC. The vulnerable code path is not reachable.",
+        "No fixed version exists yet — the advisory range is >=7.12.0 <8.3.0 and 8.3.0",
+        "is unpublished. Downgrading to 7.11.0 would clear this advisory while",
+        "reintroducing thirteen others, including an RCE via vendored turbo-stream.",
+        "Staying on 7.18.1 is strictly the safer position."
+      ],
+      "expires": "2026-10-31",
+      "reviewedBy": "engineering",
+      "revisit": "Upgrade to react-router-dom >=8.3.0 as soon as it ships."
+    }
+  ]
+}

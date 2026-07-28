@@ -1,0 +1,32 @@
+# ── Secrets. Never commit. ──
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+appsettings.*.Local.json
+secrets.json
+
+# ── .NET ──
+bin/
+obj/
+*.user
+*.suo
+[Dd]ebug/
+[Rr]elease/
+
+# ── Local database ──
+*.db
+*.db-shm
+*.db-wal
+
+# ── Node ──
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+
+# ── OS / editor ──
+.DS_Store
+.idea/
+.vs/

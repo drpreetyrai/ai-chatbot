@@ -1,0 +1,68 @@
+{"text": "chest tightness since morning", "expectRedFlag": true, "expectedTrigger": "chest_pain"}
+{"text": "I have chest pain", "expectRedFlag": true, "expectedTrigger": "chest_pain"}
+{"text": "my chest feels tight and heavy", "expectRedFlag": true, "expectedTrigger": "chest_pain"}
+{"text": "CHEST PAIN!!!", "expectRedFlag": true, "expectedTrigger": "chest_pain"}
+{"text": "chesssst paaaain", "expectRedFlag": true, "expectedTrigger": "chest_pain"}
+{"text": "ch3st p4in", "expectRedFlag": true, "expectedTrigger": "chest_pain"}
+{"text": "pressure in my chest since last night", "expectRedFlag": true, "expectedTrigger": "chest_pain"}
+{"text": "seene mein dard ho raha hai", "expectRedFlag": true, "expectedTrigger": "chest_pain_hi"}
+{"text": "chaati mein dard", "expectRedFlag": true, "expectedTrigger": "chest_pain_hi"}
+{"text": "saans nahi aa rahi", "expectRedFlag": true, "expectedTrigger": "airway_hi"}
+{"text": "i cant breathe properly", "expectRedFlag": true, "expectedTrigger": "airway"}
+{"text": "I can't breathe", "expectRedFlag": true, "expectedTrigger": "airway"}
+{"text": "having trouble breathing since last night", "expectRedFlag": true, "expectedTrigger": "dyspnoea"}
+{"text": "struggling breathing", "expectRedFlag": true, "expectedTrigger": "dyspnoea"}
+{"text": "short of breath climbing stairs", "expectRedFlag": true, "expectedTrigger": "dyspnoea"}
+{"text": "shortness of breath", "expectRedFlag": true, "expectedTrigger": "dyspnoea"}
+{"text": "feeling breathless all day", "expectRedFlag": true, "expectedTrigger": "dyspnoea"}
+{"text": "choking on my food", "expectRedFlag": true, "expectedTrigger": "airway"}
+{"text": "worst headache of my life", "expectRedFlag": true, "expectedTrigger": "thunderclap_headache"}
+{"text": "sudden weakness on my left side", "expectRedFlag": true, "expectedTrigger": "stroke"}
+{"text": "sudden numbness in my arm", "expectRedFlag": true, "expectedTrigger": "stroke"}
+{"text": "my face is drooping and speech is slurred", "expectRedFlag": true, "expectedTrigger": "stroke"}
+{"text": "slurred speech since this morning", "expectRedFlag": true, "expectedTrigger": "stroke"}
+{"text": "i cant move my leg", "expectRedFlag": true, "expectedTrigger": "stroke"}
+{"text": "had a seizure this morning", "expectRedFlag": true, "expectedTrigger": "seizure"}
+{"text": "passed out at work", "expectRedFlag": true, "expectedTrigger": "syncope"}
+{"text": "i fainted twice today", "expectRedFlag": true, "expectedTrigger": "syncope"}
+{"text": "lost consciousness briefly", "expectRedFlag": true, "expectedTrigger": "syncope"}
+{"text": "coughing up blood this morning", "expectRedFlag": true, "expectedTrigger": "haemorrhage"}
+{"text": "vomiting up blood", "expectRedFlag": true, "expectedTrigger": "haemorrhage"}
+{"text": "blood in my stool", "expectRedFlag": true, "expectedTrigger": "haemorrhage"}
+{"text": "blood in my urine", "expectRedFlag": true, "expectedTrigger": "haemorrhage"}
+{"text": "bleeding heavily and it wont stop", "expectRedFlag": true, "expectedTrigger": "haemorrhage"}
+{"text": "severe abdominal pain", "expectRedFlag": true, "expectedTrigger": "acute_abdomen"}
+{"text": "severe stomach pain since midnight", "expectRedFlag": true, "expectedTrigger": "acute_abdomen"}
+{"text": "im 30 weeks pregnant and bleeding", "expectRedFlag": true, "expectedTrigger": "obstetric"}
+{"text": "pregnant with cramping", "expectRedFlag": true, "expectedTrigger": "obstetric"}
+{"text": "the baby is not moving", "expectRedFlag": true, "expectedTrigger": "obstetric"}
+{"text": "baby isnt moving since yesterday", "expectRedFlag": true, "expectedTrigger": "obstetric"}
+{"text": "my throat is swelling up", "expectRedFlag": true, "expectedTrigger": "anaphylaxis"}
+{"text": "tongue is swollen", "expectRedFlag": true, "expectedTrigger": "anaphylaxis"}
+{"text": "i think im having an allergic reaction", "expectRedFlag": true, "expectedTrigger": "anaphylaxis"}
+{"text": "lips turning blue", "expectRedFlag": true, "expectedTrigger": "hypoxia"}
+{"text": "i want to kill myself", "expectRedFlag": true, "expectedTrigger": "self_harm"}
+{"text": "thinking about ending my life", "expectRedFlag": true, "expectedTrigger": "self_harm"}
+{"text": "i want to hurt myself", "expectRedFlag": true, "expectedTrigger": "self_harm"}
+{"text": "having suicidal thoughts", "expectRedFlag": true, "expectedTrigger": "self_harm"}
+{"text": "i took all my tablets at once", "expectRedFlag": true, "expectedTrigger": "overdose"}
+{"text": "i think i overdosed", "expectRedFlag": true, "expectedTrigger": "overdose"}
+{"text": "please send an ambulance", "expectRedFlag": true, "expectedTrigger": "explicit_emergency"}
+{"text": "this is an emergency", "expectRedFlag": true, "expectedTrigger": "explicit_emergency"}
+{"text": "i think im dying", "expectRedFlag": true, "expectedTrigger": "explicit_distress"}
+{"text": "stiff neck and the light hurts my eyes", "expectRedFlag": true, "expectedTrigger": "meningitis"}
+{"text": "Should I take my BP tablet before coming?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "Can I eat before the blood test?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "Can I reschedule to next week?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "Thank you doctor, feeling much better", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "What time is my appointment tomorrow?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "Do I need to bring my old reports?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "Is the clinic open on Saturday?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "My prescription is finishing, can I get a repeat?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "Where do I collect the X-ray films?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "Can my husband come with me to the appointment?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "The rash on my arm is slowly improving", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "How long should I continue the paracetamol?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "I have a mild headache today, is that normal after the injection?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "Can I take my tablets with milk?", "expectRedFlag": false, "expectedTrigger": null}
+{"text": "Do you have an evening slot next month?", "expectRedFlag": false, "expectedTrigger": null}

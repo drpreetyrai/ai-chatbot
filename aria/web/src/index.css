@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — wireframe.md §6, verbatim.
+
+   These are the scalability contract. Every colour, space and radius in the
+   product resolves to a variable here, so re-theming a hospital tenant is a
+   change to this block and nothing else — zero component edits.
+
+   Colour discipline: the interface is neutral except for four meanings.
+     pulse  — interactive; the human's actions
+     mint   — the machine; every AI-authored artefact carries it
+     amber  — needs review
+     rose   — clinical red flag
+   Nothing else is ever amber or rose. A screen with nothing wrong is nearly
+   monochrome, because alarm fatigue is a design failure.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  --color-canvas: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-sunken: #eef1f5;
+  --color-hairline: #e3e7ee;
+
+  --color-ink: #0b1220;
+  --color-muted: #5a6779;      /* 5.75:1 on white */
+
+  /* text.tertiary from the wireframe is #8b97a8, which measures 2.96:1 on white —
+     below the 4.5:1 the same document requires for body text. Darkened to the
+     nearest same-hue value that clears AA. The spec's intent (a third, quieter
+     step in the type hierarchy) is preserved; the number it shipped with was not
+     achievable.
+
+     Every value below is computed against the WORST background it can land on —
+     surface #ffffff, canvas #f7f8fa, sunken #eef1f5, and the tinted chip fills —
+     not against pure white. Checking only against white is how a palette passes
+     review and then fails axe on the page that actually ships. Verified by the
+     accessibility pass in e2e/journey.spec.ts. */
+  --color-faint: #656e7a;      /* 4.56:1 worst case */
+
+  --color-pulse: #1b67e0;         /* human / interactive · 4.56:1 worst case */
+
+  /* Mint and amber are RULE colours. Both fail AA as text on white, so each has a
+     darkened text-safe twin — exactly the split the wireframe already calls for
+     ("Mint on white darkens to #00806F for text"). Use the rule colour for borders
+     and glyphs; use the text colour for anything readable. */
+  --color-mint: #00a38f;          /* rule only · 3.16:1 */
+  --color-minttext: #007868;      /* text · 4.58:1 worst case, incl. the mint chip on sunken */
+  --color-review: #b7791f;        /* rule only · 3.64:1 */
+  --color-reviewtext: #956219;    /* text · 4.55:1 worst case, incl. its own amber callout tint */
+  --color-danger: #c4373c;        /* clinical red flag · rule */
+  --color-dangertext: #c2373c;    /* text · 4.56:1 worst case, incl. the rose tint */
+  --color-ok: #117c59;            /* signed / confirmed · 4.58:1 worst case */
+
+  --font-ui: Inter, -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-note: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 22px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Structure comes from 1px hairlines, not shadows. Elevation is reserved for
+   things that genuinely float: drawers, menus, toasts. */
+.hairline   { border: 1px solid var(--color-hairline); }
+.hairline-t { border-top: 1px solid var(--color-hairline); }
+.hairline-b { border-bottom: 1px solid var(--color-hairline); }
+.hairline-l { border-left: 1px solid var(--color-hairline); }
+
+/* The clinical note body is set in a serif so it reads as a document rather
+   than an app — a quiet signal that this is the record. */
+.note-body {
+  font-family: var(--font-note);
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.micro {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.mono { font-family: var(--font-mono); font-size: 12px; }
+
+/* Focus rings are visible and never removed. */
+*:focus-visible {
+  outline: 2px solid var(--color-pulse);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* Motion is functional only. The waveform and the recording dot are the only
+   continuous motion in the product, and both stop on request. */
+@keyframes aria-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.3 } }
+@keyframes aria-bar   { 0%, 100% { transform: scaleY(0.25) } 50% { transform: scaleY(1) } }
+
+.recording-dot { animation: aria-pulse 1.4s ease-in-out infinite; }
+.wave-bar      { animation: aria-bar 0.9s ease-in-out infinite; transform-origin: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .recording-dot, .wave-bar { animation: none !important; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--color-hairline); border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }

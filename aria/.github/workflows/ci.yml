@@ -1,0 +1,186 @@
+name: CI
+
+# The pipeline from plan.md §18.2, with the §9 evaluation gates wired in.
+#
+# The ordering is deliberate: the cheap, fast checks fail first, and the release
+# gates run before anything is built for deployment. A gate that runs after the
+# artefact is published is not a gate.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  # Never inherit a developer's or runner's .env. CI must be configured explicitly.
+  ARIA_IGNORE_DOTENV: true
+
+jobs:
+  # ───────────────────────────────────────────────────────────────────────────
+  #  Build, unit tests, and the architecture rules that encode the invariants.
+  # ───────────────────────────────────────────────────────────────────────────
+  backend:
+    name: Backend · build, unit, architecture
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build (warnings are not tolerated)
+        run: dotnet build --no-restore -warnaserror
+
+      - name: Unit and architecture tests
+        run: dotnet test tests/Aria.Tests --no-build --logger "trx;LogFileName=unit.trx"
+
+      - name: Integration tests (real HTTP, real database, real guardrails)
+        run: dotnet test tests/Aria.IntegrationTests --no-build --logger "trx;LogFileName=integration.trx"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dotnet-test-results
+          path: '**/*.trx'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  #  RELEASE GATES. Several of these are specified at 100% or 0 with no override.
+  #  A failure here is not a test to triage — it is a product that must not ship.
+  # ───────────────────────────────────────────────────────────────────────────
+  evaluation-gates:
+    name: Evaluation gates · recall, contraindications, injection
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Run the golden sets
+        run: |
+          dotnet test tests/Aria.Evals \
+            --logger "console;verbosity=detailed" \
+            --logger "trx;LogFileName=evals.trx"
+
+      - name: Explain a failure
+        if: failure()
+        run: |
+          echo "::error title=Release gate failed::One of the hard gates did not pass."
+          echo "RedFlagRecall, AllergyConflictRecall and InjectionResistance are"
+          echo "specified with no override. If one of them is red, the change cannot"
+          echo "ship — fix the detector or the checker, never the dataset."
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evaluation-results
+          path: '**/evals.trx'
+
+  # ───────────────────────────────────────────────────────────────────────────
+  #  Frontend: types, lint, unit tests, production build.
+  # ───────────────────────────────────────────────────────────────────────────
+  frontend:
+    name: Frontend · types, lint, unit
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run build
+
+  # ───────────────────────────────────────────────────────────────────────────
+  #  End to end, in a real browser, against the real stack — including the
+  #  WCAG 2.2 AA pass. Accessibility is a requirement here, not a checklist.
+  # ───────────────────────────────────────────────────────────────────────────
+  e2e:
+    name: E2E · hero journey and accessibility
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - run: dotnet build
+      - run: npm ci
+        working-directory: web
+      - run: npx playwright install --with-deps chromium
+        working-directory: web
+      - run: npx playwright test
+        working-directory: web
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: web/playwright-report/
+
+  # ───────────────────────────────────────────────────────────────────────────
+  #  Supply chain. A known-vulnerable dependency fails the build rather than
+  #  producing a warning nobody reads.
+  # ───────────────────────────────────────────────────────────────────────────
+  supply-chain:
+    name: Supply chain · vulnerable packages, committed secrets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: NuGet vulnerabilities
+        run: |
+          dotnet restore
+          output=$(dotnet list package --vulnerable --include-transitive)
+          echo "$output"
+          if echo "$output" | grep -q "has the following vulnerable packages"; then
+            echo "::error title=Vulnerable dependency::A package with a known advisory is referenced."
+            exit 1
+          fi
+
+      - name: npm vulnerabilities
+        working-directory: web
+        # Not a bare `npm audit`: the gate fails on any unreviewed high/critical
+        # advisory AND on any allowlist entry that has expired, so an exception
+        # cannot quietly become permanent.
+        run: npm run audit
+
+      - name: No secrets in the frontend bundle
+        working-directory: web
+        run: |
+          # Anything prefixed VITE_ is compiled into the browser bundle and is public.
+          # This is a mistake that is easy to make once and expensive forever.
+          if grep -rEn '^VITE_[A-Z_]*(SECRET|KEY|TOKEN|PASSWORD)=' ../.env.example; then
+            echo "::error title=Secret in a public variable::A VITE_ variable is named like a secret."
+            exit 1
+          fi
+
+      - name: .env is not committed
+        run: |
+          if git ls-files --error-unmatch .env 2>/dev/null; then
+            echo "::error title=Committed secrets::.env is tracked by git."
+            exit 1
+          fi

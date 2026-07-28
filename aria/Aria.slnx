@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Aria.Agents/Aria.Agents.csproj" />
+    <Project Path="src/Aria.Api/Aria.Api.csproj" />
+    <Project Path="src/Aria.Domain/Aria.Domain.csproj" />
+    <Project Path="src/Aria.Infrastructure/Aria.Infrastructure.csproj" />
+    <Project Path="src/Aria.Integrations/Aria.Integrations.csproj" />
+    <Project Path="src/Aria.Safety/Aria.Safety.csproj" />
+    <Project Path="src/Aria.Shared/Aria.Shared.csproj" />
+    <Project Path="src/Aria.Workers/Aria.Workers.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Aria.Evals/Aria.Evals.csproj" />
+    <Project Path="tests/Aria.IntegrationTests/Aria.IntegrationTests.csproj" />
+    <Project Path="tests/Aria.Tests/Aria.Tests.csproj" />
+  </Folder>
+</Solution>

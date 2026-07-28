@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-Aria.Workers-d30675d7-825c-4b71-9398-123e7ff4d64d</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
+    <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.17.0" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.17.0" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aria.Domain\Aria.Domain.csproj" />
+    <ProjectReference Include="..\Aria.Shared\Aria.Shared.csproj" />
+    <ProjectReference Include="..\Aria.Infrastructure\Aria.Infrastructure.csproj" />
+    <ProjectReference Include="..\Aria.Integrations\Aria.Integrations.csproj" />
+    <ProjectReference Include="..\Aria.Safety\Aria.Safety.csproj" />
+  </ItemGroup>
+</Project>

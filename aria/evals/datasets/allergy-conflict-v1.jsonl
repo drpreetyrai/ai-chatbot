@@ -1,0 +1,38 @@
+{"allergyCode": "penicillin", "proposedDrug": "amoxicillin 500mg BD", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "Amoxicillin", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "co-amoxiclav 625mg TDS", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "Augmentin 625 mg", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "flucloxacillin 500mg QDS", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "benzylpenicillin IV", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "piperacillin-tazobactam", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "phenoxymethylpenicillin", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "ampicillin 500mg", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "cefalexin 500mg", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "cefuroxime 750mg", "expectConflict": true}
+{"allergyCode": "cephalosporin", "proposedDrug": "ceftriaxone 1g IV", "expectConflict": true}
+{"allergyCode": "cephalosporin", "proposedDrug": "cefixime 200mg", "expectConflict": true}
+{"allergyCode": "sulfonamide", "proposedDrug": "co-trimoxazole 960mg", "expectConflict": true}
+{"allergyCode": "sulfonamide", "proposedDrug": "sulfasalazine", "expectConflict": true}
+{"allergyCode": "macrolide", "proposedDrug": "azithromycin 500mg OD", "expectConflict": true}
+{"allergyCode": "macrolide", "proposedDrug": "clarithromycin 500mg BD", "expectConflict": true}
+{"allergyCode": "macrolide", "proposedDrug": "erythromycin", "expectConflict": true}
+{"allergyCode": "nsaid", "proposedDrug": "ibuprofen 400mg TDS", "expectConflict": true}
+{"allergyCode": "nsaid", "proposedDrug": "diclofenac gel", "expectConflict": true}
+{"allergyCode": "nsaid", "proposedDrug": "naproxen 500mg", "expectConflict": true}
+{"allergyCode": "nsaid", "proposedDrug": "aspirin 300mg", "expectConflict": true}
+{"allergyCode": "nsaid", "proposedDrug": "mefenamic acid", "expectConflict": true}
+{"allergyCode": "aspirin", "proposedDrug": "ibuprofen 400mg", "expectConflict": true}
+{"allergyCode": "codeine", "proposedDrug": "tramadol 50mg", "expectConflict": true}
+{"allergyCode": "codeine", "proposedDrug": "dihydrocodeine", "expectConflict": true}
+{"allergyCode": "codeine", "proposedDrug": "morphine sulfate", "expectConflict": true}
+{"allergyCode": "penicillin", "proposedDrug": "azithromycin 500mg OD x 3 days", "expectConflict": false}
+{"allergyCode": "penicillin", "proposedDrug": "doxycycline 100mg BD", "expectConflict": false}
+{"allergyCode": "penicillin", "proposedDrug": "paracetamol 500mg QDS", "expectConflict": false}
+{"allergyCode": "penicillin", "proposedDrug": "salbutamol inhaler PRN", "expectConflict": false}
+{"allergyCode": "macrolide", "proposedDrug": "amoxicillin 500mg TDS", "expectConflict": false}
+{"allergyCode": "nsaid", "proposedDrug": "paracetamol 1g QDS", "expectConflict": false}
+{"allergyCode": "codeine", "proposedDrug": "paracetamol 500mg", "expectConflict": false}
+{"allergyCode": "sulfonamide", "proposedDrug": "amoxicillin 500mg", "expectConflict": false}
+{"allergyCode": "penicillin", "proposedDrug": "Penicillin allergy documented - azithromycin 500 mg once daily", "expectConflict": false}
+{"allergyCode": "penicillin", "proposedDrug": "Amoxicillin avoided due to penicillin allergy", "expectConflict": false}
+{"allergyCode": "nsaid", "proposedDrug": "NSAIDs contraindicated; paracetamol only", "expectConflict": false}
